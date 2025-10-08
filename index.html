@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Regreso de 9k_lSlay</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: Consolas, monospace;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      margin-top: 80px;
+      gap: 20px;
+    }
+
+    .time-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .number {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .label {
+      font-size: 1.2rem;
+      margin-top: 5px;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 1.5rem;
+    }
+
+    .name {
+      color: #b300ff;
+      font-weight: bold;
+    }
+
+    .top-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: black;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-family: Consolas;
+      font-weight: bold;
+    }
+
+    .top-btn:hover {
+      background-color: #222;
+    }
+  </style>
+</head>
+<body>
+  <button class="top-btn" onclick="toggleTop()">Fijar ventana arriba</button>
+
+  <div class="container">
+    <div class="time-box">
+      <div class="number" id="meses">00</div>
+      <div class="label">Meses</div>
+    </div>
+    <div class="time-box">
+      <div class="number" id="dias">00</div>
+      <div class="label">Días</div>
+    </div>
+    <div class="time-box">
+      <div class="number" id="horas">00</div>
+      <div class="label">Horas</div>
+    </div>
+    <div class="time-box">
+      <div class="number" id="minutos">00</div>
+      <div class="label">Minutos</div>
+    </div>
+    <div class="time-box">
+      <div class="number" id="segundos">00</div>
+      <div class="label">Segundos</div>
+    </div>
+  </div>
+
+  <div class="message">
+    Regreso de <span class="name">9k_lSlay</span>
+  </div>
+
+  <script>
+    const targetDate = new Date("2025-12-25T06:28:00-03:00");
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById("meses").textContent = "00";
+        document.getElementById("dias").textContent = "00";
+        document.getElementById("horas").textContent = "00";
+        document.getElementById("minutos").textContent = "00";
+        document.getElementById("segundos").textContent = "00";
+        document.querySelector(".message").innerHTML = "¡Ya volvió <span class='name'>9k_lSlay</span>!";
+        return;
+      }
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const totalMinutes = Math.floor(totalSeconds / 60);
+      const totalHours = Math.floor(totalMinutes / 60);
+      const totalDays = Math.floor(totalHours / 24);
+      const months = Math.floor(totalDays / 30);
+      const days = totalDays % 30;
+      const hours = totalHours % 24;
+      const minutes = totalMinutes % 60;
+      const seconds = totalSeconds % 60;
+
+      document.getElementById("meses").textContent = String(months).padStart(2, "0");
+      document.getElementById("dias").textContent = String(days).padStart(2, "0");
+      document.getElementById("horas").textContent = String(hours).padStart(2, "0");
+      document.getElementById("minutos").textContent = String(minutes).padStart(2, "0");
+      document.getElementById("segundos").textContent = String(seconds).padStart(2, "0");
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // Simulación del botón de "Fijar ventana arriba" (solo decorativo en web)
+    let fixed = false;
+    function toggleTop() {
+      fixed = !fixed;
+      const btn = document.querySelector(".top-btn");
+      if (fixed) {
+        btn.textContent = "Desactivar fijación";
+        btn.style.backgroundColor = "#4d4d4d";
+      } else {
+        btn.textContent = "Fijar ventana arriba";
+        btn.style.backgroundColor = "black";
+      }
+    }
+  </script>
+</body>
+</html>
