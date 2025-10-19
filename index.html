@@ -16,6 +16,12 @@
       margin: 0;
     }
 
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
     .card {
       background-color: #111;
       border: 2px solid #b400ff;
@@ -64,28 +70,45 @@
     .section {
       margin-top: 25px;
     }
+
+    .side-image {
+      max-width: 300px;
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #b400ff;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>9k lSlay</h1>
-    <h2>AKA deftoneslover16</h2>
+  <div class="container">
+    <div class="card">
+      <h1>9k lSlay</h1>
+      <h2>AKA deftoneslover16</h2>
 
-    <h3>Socials</h3>
-    <div class="links">
-      <a href="https://discord.com/users/949130368987045928" target="_blank">Discord</a>
-      <a href="https://www.instagram.com/9k._.lslay" target="_blank">Instagram</a>
-      <a href="https://www.roblox.com/users/7720711696/profile" target="_blank">Roblox</a>
-      <a href="https://www.youtube.com/@9k_lSlayMusic" target="_blank">YouTube</a>
-    </div>
+      <h3>Socials</h3>
+      <div class="links">
+        <a href="https://discord.com/users/949130368987045928" target="_blank">Discord</a>
+        <a href="https://www.instagram.com/9k._.lslay" target="_blank">Instagram</a>
+        <a href="https://www.roblox.com/users/7720711696/profile" target="_blank">Roblox</a>
+        <a href="https://www.youtube.com/@9k_lSlayMusic" target="_blank">YouTube</a>
+      </div>
 
-    <div class="section">
-      <h3>Extra</h3>
-      <div class="extra">
-        <a href="applications.html" target="_blank">Applications</a>
-        <a href="timer.html" target="_blank">Timer until my Roblox Unban.</a>
+      <div class="section">
+        <h3>Extra</h3>
+        <div class="extra">
+          <a href="applications.html" target="_blank">Applications</a>
+          <a href="timer.html" target="_blank">Timer until my Roblox Unban.</a>
+        </div>
       </div>
     </div>
+
+    <img src="SyntaxSeeker-code.png" alt="Imagen" class="side-image">
   </div>
 </body>
 </html>
