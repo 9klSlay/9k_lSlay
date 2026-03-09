@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☼9k lSlay☼ - Notes</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #b400ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .card {
+      background-color: #111;
+      border: 2px solid #b400ff;
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 0 25px #b400ff;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.2em;
+      margin-bottom: 25px;
+      color: #c27fff;
+    }
+
+    h3 {
+      font-size: 1.4em;
+      margin-bottom: 15px;
+      color: #b400ff;
+    }
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      background-color: #222;
+      color: #b400ff;
+      border: 1px solid #b400ff;
+      border-radius: 10px;
+      padding: 10px;
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    button {
+      background-color: #b400ff;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #7a00b3;
+      transform: scale(1.05);
+    }
+
+    .extra a {
+      display: block;
+      text-decoration: none;
+      color: #fff;
+      background-color: #b400ff;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 10px;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    .extra a:hover {
+      background-color: #7a00b3;
+      transform: scale(1.05);
+    }
+
+    .section {
+      margin-top: 25px;
+    }
+
+    .side-image {
+      max-width: 300px;
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #b400ff;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>9k lSlay</h1>
+      <h2>AKA deftoneslover16</h2>
+
+      <h3>My Notes</h3>
+      <textarea id="notes" placeholder="Write your notes here..."></textarea>
+      <button onclick="saveNotes()">Save Notes</button>
+
+      <button onclick="window.location.href='test.html'">Back</button>
+    </div>
+
+    <img src="SyntaxSeeker-code.png" alt="SyntaxSeeker Code Image" class="side-image">
+  </div>
+
+  <script>
+    const notesTextarea = document.getElementById('notes');
+
+    // Load notes from localStorage
+    function loadNotes() {
+      const savedNotes = localStorage.getItem('myNotes');
+      if (savedNotes) {
+        notesTextarea.value = savedNotes;
+      }
+    }
+
+    // Save notes to localStorage
+    function saveNotes() {
+      localStorage.setItem('myNotes', notesTextarea.value);
+      alert('Notes saved!');
+    }
+
+    // Load notes on page load
+    window.onload = loadNotes;
+  </script>
+</body>
+</html>
