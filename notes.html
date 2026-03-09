@@ -121,34 +121,176 @@
       <h2>AKA deftoneslover16</h2>
 
       <h3>My Notes</h3>
-      <textarea id="notes" placeholder="Write your notes here..."></textarea>
-      <button onclick="saveNotes()">Save Notes</button>
+      <div id="notesList">
+        <!-- Notes will be loaded here -->
+      </div>
+      <button id="refreshBtn">Refresh Notes</button>
+      <button id="addNoteBtn">+ Add New Note</button>
 
-      <button onclick="window.location.href='test.html'">Back</button>
+      <button onclick="window.location.href='index.html'">Back</button>
+    </div>
+
+    <div id="editor" style="display:none;" class="card">
+      <h4>Create New Note</h4>
+      <input type="text" id="noteTitle" placeholder="Note Title">
+      <textarea id="noteContent" placeholder="Note Content"></textarea>
+      <button id="addLinkBtn">Add Link</button>
+      <button id="addImageBtn">Add Image</button>
+      <button id="saveBtn">Save Note</button>
+      <button id="cancelBtn">Cancel</button>
     </div>
 
     <img src="SyntaxSeeker-code.png" alt="SyntaxSeeker Code Image" class="side-image">
   </div>
 
   <script>
-    const notesTextarea = document.getElementById('notes');
+    const addNoteBtn = document.getElementById('addNoteBtn');
+    const editor = document.getElementById('editor');
+    const mainCard = document.querySelector('.card');
+    const noteTitle = document.getElementById('noteTitle');
+    const noteContent = document.getElementById('noteContent');
+    const addLinkBtn = document.getElementById('addLinkBtn');
+    const addImageBtn = document.getElementById('addImageBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
 
-    // Load notes from localStorage
-    function loadNotes() {
-      const savedNotes = localStorage.getItem('myNotes');
-      if (savedNotes) {
-        notesTextarea.value = savedNotes;
+    let directoryHandle;
+
+    addNoteBtn.onclick = async () => {
+      if (!directoryHandle) await selectDirectory();
+      mainCard.style.display = 'none';
+      editor.style.display = 'block';
+    };
+
+    refreshBtn.onclick = loadNotes;
+
+    addLinkBtn.onclick = () => {
+      const url = prompt('Enter URL:');
+      const text = prompt('Enter link text:');
+      if (url && text) {
+        noteContent.value += `\n<a href="${url}">${text}</a>\n`;
+      }
+    };
+
+    addImageBtn.onclick = () => {
+      const url = prompt('Enter image URL:');
+      if (url) {
+        noteContent.value += `\n<img src="${url}" alt="image">\n`;
+      }
+    };
+
+    async function selectDirectory() {
+      try {
+        directoryHandle = await window.showDirectoryPicker();
+        await loadNotes();
+      } catch (error) {
+        alert('Directory selection cancelled or not supported.');
       }
     }
 
-    // Save notes to localStorage
-    function saveNotes() {
-      localStorage.setItem('myNotes', notesTextarea.value);
-      alert('Notes saved!');
+    async function getNextNoteNumber() {
+      if (!directoryHandle) await selectDirectory();
+      if (!directoryHandle) return 1;
+      let maxNum = 0;
+      try {
+        for await (const [name] of directoryHandle.entries()) {
+          if (name.startsWith('note') && name.endsWith('.html')) {
+            const num = parseInt(name.slice(4, -5));
+            if (!isNaN(num) && num > maxNum) maxNum = num;
+          }
+        }
+      } catch (error) {
+        console.error('Error reading directory:', error);
+      }
+      return maxNum + 1;
     }
 
-    // Load notes on page load
-    window.onload = loadNotes;
+    async function loadNotes() {
+      if (!directoryHandle) return;
+      const notesList = document.getElementById('notesList');
+      notesList.innerHTML = '';
+      try {
+        for await (const [name] of directoryHandle.entries()) {
+          if (name.startsWith('note') && name.endsWith('.html')) {
+            const link = document.createElement('a');
+            link.href = `notes/${name}`;
+            link.textContent = name.replace('.html', '').replace('note', 'Note ');
+            link.style.display = 'block';
+            link.style.color = '#b400ff';
+            link.style.textDecoration = 'none';
+            link.style.margin = '8px 0';
+            notesList.appendChild(link);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading notes:', error);
+      }
+    }
+
+    saveBtn.onclick = async () => {
+      const title = noteTitle.value.trim();
+      const content = noteContent.value.trim();
+      if (!title || !content) {
+        alert('Please enter title and content.');
+        return;
+      }
+      const num = await getNextNoteNumber();
+      if (!directoryHandle) return;
+      const filename = `note${num}.html`;
+      try {
+        const fileHandle = await directoryHandle.getFileHandle(filename, { create: true });
+        const writable = await fileHandle.createWritable();
+        const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${title}</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #b400ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      color: #b400ff;
+    }
+    p, div {
+      color: #c27fff;
+    }
+    a {
+      color: #b400ff;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #7a00b3;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>${title}</h1>
+  <div>${content.replace(/\n/g, '<br>')}</div>
+  <a href="../notes.html">Back to Notes</a>
+</body>
+</html>`;
+        await writable.write(html);
+        await writable.close();
+        alert(`Note saved as ${filename}`);
+        await loadNotes();
+        editor.style.display = 'none';
+        mainCard.style.display = 'block';
+        noteTitle.value = '';
+        noteContent.value = '';
+      } catch (error) {
+        alert('Error saving note: ' + error.message);
+      }
+    };
   </script>
 </body>
 </html>
