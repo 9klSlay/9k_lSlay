@@ -3,26 +3,186 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>☼9k lSlay☼</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div class="container">
-    <div class="card">
+
+  <!-- Fondo decorativo -->
+  <div class="snake-bg">
+    <div class="snake snake-1"></div>
+    <div class="snake snake-2"></div>
+    <div class="snake snake-3"></div>
+  </div>
+
+  <main class="container">
+
+    <section class="card">
+
+      <div class="glow"></div>
+
       <h1>9k lSlay</h1>
+
       <h2>AKA deftoneslover16</h2>
+
+      <div class="snake-line"></div>
 
       <h3>Socials</h3>
 
       <div class="links">
-        <a href="https://discord.com/users/1435029512860598416">Discord</a>
-        <a href="https://www.instagram.com/9k._.lslay">Instagram</a>
-        <a href="https://www.roblox.com/users/8332813376/profile">Roblox</a>
-        <a href="https://www.roblox.com/users/7720711696/profile">Roblox Alt</a>
-        <a href="https://www.youtube.com/@9k_lSlayy">YouTube</a>
+
+        <a href="https://discord.com/users/1435029512860598416">
+          <span>Discord</span>
+        </a>
+
+        <a href="https://www.instagram.com/9k._.lslay">
+          <span>Instagram</span>
+        </a>
+
+        <a href="https://www.roblox.com/users/8332813376/profile">
+          <span>Roblox</span>
+        </a>
+
+        <a href="https://www.roblox.com/users/7720711696/profile">
+          <span>Roblox Alt</span>
+        </a>
+
+        <a href="https://www.youtube.com/@9k_lSlayy">
+          <span>YouTube</span>
+        </a>
+
       </div>
-    </div>
-  </div>
+
+      <div class="snake-line bottom-line"></div>
+
+      <p class="footer">☼ 9k lSlay ☼</p>
+
+    </section>
+
+  </main>
+
+
+  <!--
+    SPARKS + SPIDERMAN RANDOM EVENT
+  -->
+  <script>
+
+    /*
+      ================================
+      PURPLE MOUSE SPARKS
+      ================================
+    */
+
+    const clickableElements = document.querySelectorAll(
+      'a, button, input, select, textarea, [role="button"]'
+    );
+
+    clickableElements.forEach(element => {
+
+      element.addEventListener('mouseenter', () => {
+        element.classList.add('clickable-glow');
+      });
+
+      element.addEventListener('mouseleave', () => {
+        element.classList.remove('clickable-glow');
+      });
+
+      element.addEventListener('click', (event) => {
+
+        for (let i = 0; i < 12; i++) {
+          createSpark(event.clientX, event.clientY);
+        }
+
+      });
+
+    });
+
+
+    function createSpark(x, y) {
+
+      const spark = document.createElement('div');
+
+      spark.classList.add('spark');
+
+      spark.style.left = `${x}px`;
+      spark.style.top = `${y}px`;
+
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 25 + Math.random() * 45;
+
+      spark.style.setProperty(
+        '--x',
+        `${Math.cos(angle) * distance}px`
+      );
+
+      spark.style.setProperty(
+        '--y',
+        `${Math.sin(angle) * distance}px`
+      );
+
+      document.body.appendChild(spark);
+
+      setTimeout(() => {
+        spark.remove();
+      }, 600);
+
+    }
+
+
+    /*
+      ================================
+      SPIDERMAN RANDOM EVENT
+      ================================
+
+      1/500 cada segundo.
+    */
+
+    setInterval(() => {
+
+      const chance = Math.floor(Math.random() * 500);
+
+      if (chance === 0) {
+        playSpiderman();
+      }
+
+    }, 1000);
+
+
+    function playSpiderman() {
+
+      // Evita que aparezcan varios videos simultáneamente.
+      if (document.querySelector('.spiderman-video')) {
+        return;
+      }
+
+      const video = document.createElement('video');
+
+      video.classList.add('spiderman-video');
+
+      video.src = 'spiderman.mp4';
+
+      video.autoplay = true;
+      video.controls = false;
+
+      document.body.appendChild(video);
+
+      video.play().catch(() => {
+        /*
+          Algunos navegadores bloquean reproducción automática
+          con sonido si el usuario todavía no ha interactuado.
+        */
+      });
+
+      video.addEventListener('ended', () => {
+        video.remove();
+      });
+
+    }
+
+  </script>
+
 </body>
 </html>
