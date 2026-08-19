@@ -1,46 +1,152 @@
-body {
-  background-color: #000;
-  color: #b400ff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+/* =========================================
+   ESTILO ADAPTADO: codigo1 -> parecido a css2
+   Mantiene los efectos de sparks y serpientes
+   ========================================= */
+
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+body {
+  background: #000;
+  color: #eee;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ====== Contenedor principal ====== */
 
 .container {
+  width: 90%;
+  max-width: 900px;
+  margin: 40px auto;
   display: flex;
-  align-items: center;
-  gap: 30px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 25px;
+  position: relative;
+  z-index: 2;
 }
 
+/* ====== Fondo de serpientes de codigo1 ====== */
+
+.snake-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.snake {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border: 2px solid rgba(180, 0, 255, .16);
+  border-radius: 50%;
+  filter: blur(1px);
+}
+
+.snake-1 {
+  top: -100px;
+  left: -100px;
+}
+
+.snake-2 {
+  right: -120px;
+  top: 30%;
+}
+
+.snake-3 {
+  bottom: -130px;
+  left: 25%;
+}
+
+/* ====== Tarjetas ====== */
+
 .card {
+  position: relative;
   background-color: #111;
   border: 2px solid #b400ff;
   border-radius: 20px;
-  padding: 40px;
+  padding: 35px;
   text-align: center;
-  box-shadow: 0 0 25px #b400ff;
-  max-width: 400px;
-  width: 90%;
+  box-shadow: 0 0 25px rgba(180, 0, 255, .55);
+  width: 100%;
+  overflow: hidden;
 }
 
+/* Mantiene el glow que usa codigo1 */
+.glow {
+  position: absolute;
+  inset: -80px;
+  background: radial-gradient(
+    circle,
+    rgba(180, 0, 255, .12),
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card > *:not(.glow) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ====== Títulos ====== */
+
 h1 {
+  color: #fff;
   font-size: 2.8em;
   margin-bottom: 10px;
+  text-shadow: 0 0 15px rgba(180, 0, 255, .7);
 }
 
 h2 {
-  font-size: 1.2em;
+  font-size: 1.5em;
   margin-bottom: 25px;
   color: #c27fff;
 }
 
 h3 {
-  font-size: 1.4em;
-  margin-bottom: 15px;
+  font-size: 1.3em;
+  margin: 20px 0 15px;
   color: #b400ff;
+}
+
+p {
+  margin: 12px auto;
+  color: #ddd;
+  max-width: 700px;
+}
+
+/* ====== Línea decorativa de codigo1 ====== */
+
+.snake-line {
+  width: 75%;
+  height: 2px;
+  margin: 20px auto;
+  background: #b400ff;
+  box-shadow: 0 0 10px #b400ff;
+  border-radius: 10px;
+}
+
+.bottom-line {
+  margin: 0 auto;
+}
+
+/* ====== Links ====== */
+
+.links {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .links a {
@@ -49,19 +155,163 @@ h3 {
   color: #fff;
   background-color: #b400ff;
   padding: 12px;
-  margin: 8px 0;
+  margin: 10px 0;
   border-radius: 10px;
-  transition: 0.3s;
+  transition: .3s ease;
   font-weight: bold;
+  box-shadow: 0 0 8px rgba(180, 0, 255, .25);
 }
 
 .links a:hover {
   background-color: #7a00b3;
   transform: scale(1.05);
+  box-shadow: 0 0 18px rgba(180, 0, 255, .8);
 }
+
+/* El JS de codigo1 añade esta clase al pasar el mouse */
+.clickable-glow {
+  box-shadow:
+    0 0 10px #b400ff,
+    0 0 25px rgba(180, 0, 255, .8) !important;
+}
+
+/* ====== Listas ====== */
+
+ul,
+ol {
+  display: inline-block;
+  text-align: left;
+  margin: 5px auto 20px;
+  padding-left: 30px;
+  color: #ddd;
+}
+
+li {
+  margin: 7px 0;
+}
+
+/* ====== Imágenes ====== */
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+img.album,
+img[type="album"] {
+  width: 100%;
+  max-width: 240px;
+  display: block;
+  margin: 15px auto;
+  transition: .3s ease;
+}
+
+img.album:hover,
+img[type="album"]:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 20px rgba(180, 0, 255, .7);
+}
+
+/* ====== Figuras ====== */
+
+figure {
+  text-align: center;
+  margin: 25px 0;
+}
+
+figcaption {
+  color: #bbb;
+  margin-top: 10px;
+}
+
+/* ====== Footer de codigo1 ====== */
+
+.footer {
+  color: #999;
+  text-align: center;
+  padding: 5px 0 20px;
+}
+
+/* ====== Evento Spider-Man ====== */
+
+.spiderman-video {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90vw, 700px);
+  max-height: 90vh;
+  object-fit: contain;
+  z-index: 9999;
+  border: 2px solid #b400ff;
+  border-radius: 15px;
+  box-shadow: 0 0 35px #b400ff;
+}
+
+/* ====== Sparks ====== */
+
+.spark {
+  position: fixed;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c27fff;
+  box-shadow:
+    0 0 6px #b400ff,
+    0 0 14px #b400ff;
+  pointer-events: none;
+  z-index: 10000;
+  animation: sparkMove .6s ease-out forwards;
+}
+
+@keyframes sparkMove {
+  from {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) scale(0);
+  }
+}
+
+/* ====== Responsive ====== */
 
 @media (max-width: 768px) {
   .container {
-    flex-direction: column;
+    width: 94%;
+    margin: 20px auto;
+    gap: 18px;
+  }
+
+  .card {
+    padding: 25px 18px;
+  }
+
+  h1 {
+    font-size: 2.2em;
+  }
+
+  h2 {
+    font-size: 1.25em;
+  }
+
+  h3 {
+    font-size: 1.15em;
+  }
+
+  .links a {
+    padding: 11px;
+  }
+
+  .snake-line {
+    width: 90%;
+  }
+
+  img.album,
+  img[type="album"] {
+    max-width: 190px;
   }
 }
