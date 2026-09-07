@@ -149,28 +149,23 @@ p {
 
 .links,
 .work-buttons {
-  width: 100%;
-  max-width: 500px;
+  width: fit-content;
   margin: 0 auto;
 }
 
-/* Estilo general de todos los botones */
-
 .links a,
 .work-buttons a {
-  display: block;
+  display: inline-block;
   text-decoration: none;
   color: #fff;
   background-color: #b400ff;
-  padding: 12px;
+  padding: 12px 25px;
   margin: 10px 0;
   border-radius: 10px;
   transition: .3s ease;
   font-weight: bold;
   box-shadow: 0 0 8px rgba(180, 0, 255, .25);
 }
-
-/* Hover */
 
 .links a:hover,
 .work-buttons a:hover {
