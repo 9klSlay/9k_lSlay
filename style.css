@@ -33,7 +33,7 @@ body {
   z-index: 2;
 }
 
-/* ====== Fondo de serpientes de codigo1 ====== */
+/* ====== Fondo de serpientes ====== */
 
 .snake-bg {
   position: fixed;
@@ -81,7 +81,8 @@ body {
   overflow: hidden;
 }
 
-/* Mantiene el glow que usa codigo1 */
+/* Glow */
+
 .glow {
   position: absolute;
   inset: -80px;
@@ -126,7 +127,7 @@ p {
   max-width: 700px;
 }
 
-/* ====== Línea decorativa de codigo1 ====== */
+/* ====== Líneas decorativas ====== */
 
 .snake-line {
   width: 75%;
@@ -141,15 +142,22 @@ p {
   margin: 0 auto;
 }
 
-/* ====== Links ====== */
+/* =========================================
+   BOTONES
+   Redes Sociales + Trabajos/Tareas
+   ========================================= */
 
-.links {
+.links,
+.work-buttons {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
 }
 
-.links a {
+/* Estilo general de todos los botones */
+
+.links a,
+.work-buttons a {
   display: block;
   text-decoration: none;
   color: #fff;
@@ -162,13 +170,17 @@ p {
   box-shadow: 0 0 8px rgba(180, 0, 255, .25);
 }
 
-.links a:hover {
+/* Hover */
+
+.links a:hover,
+.work-buttons a:hover {
   background-color: #7a00b3;
   transform: scale(1.05);
   box-shadow: 0 0 18px rgba(180, 0, 255, .8);
 }
 
-/* El JS de codigo1 añade esta clase al pasar el mouse */
+/* Glow añadido por JavaScript */
+
 .clickable-glow {
   box-shadow:
     0 0 10px #b400ff,
@@ -225,12 +237,25 @@ figcaption {
   margin-top: 10px;
 }
 
-/* ====== Footer de codigo1 ====== */
+/* ====== Footer ====== */
 
 .footer {
   color: #999;
   text-align: center;
   padding: 5px 0 20px;
+}
+
+/* Links del footer */
+
+.footer a {
+  color: #b400ff;
+  text-decoration: none;
+  transition: .3s ease;
+}
+
+.footer a:hover {
+  color: #c27fff;
+  text-shadow: 0 0 10px rgba(180, 0, 255, .8);
 }
 
 /* ====== Evento Spider-Man ====== */
@@ -280,6 +305,7 @@ figcaption {
 /* ====== Responsive ====== */
 
 @media (max-width: 768px) {
+
   .container {
     width: 94%;
     margin: 20px auto;
@@ -302,7 +328,8 @@ figcaption {
     font-size: 1.15em;
   }
 
-  .links a {
+  .links a,
+  .work-buttons a {
     padding: 11px;
   }
 
